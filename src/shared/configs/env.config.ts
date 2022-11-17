@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import * as fs from 'fs';
+import * as dotenv from 'dotenv';
 
 @Injectable()
 export class EnvConfig {
-  public envConfig: { [key: string]: string };
+  private readonly envConfig: { [key: string]: string };
 
   constructor() {
-    this.envConfig = process.env;
+    this.envConfig = dotenv.parse(fs.readFileSync('.env')) as unknown as {
+      [key: string]: string;
+    };
   }
 
-  protected int(value: string | undefined, defaultValue: number): number {
-    return Number.parseInt(value, 10) || defaultValue;
+  private int(value: string | undefined, number: number): number {
+    return value
+      ? Number.isNaN(Number.parseInt(value))
+        ? number
+        : Number.parseInt(value)
+      : number;
   }
 
   protected bool(value: string | undefined, defaultValue: boolean): boolean {
