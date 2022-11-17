@@ -10,7 +10,7 @@ export class ScratchpayApiService extends BaseApiService {
   constructor(envConfig: EnvConfig) {
     super(envConfig.fakeBaseUrl(), envConfig);
   }
-  async getDentalClinics(context: RequestContext): Promise<IDentalResponse> {
+  async getDentalClinics(context: RequestContext): Promise<IDentalResponse[]> {
     try {
       const response = await this.get(
         context,
@@ -18,6 +18,7 @@ export class ScratchpayApiService extends BaseApiService {
       );
       return response?.data;
     } catch (error) {
+      console.log(error);
       const { correlationId } = context;
       const msg = 'Exception error in ScratchpayApiService.getDentalClinics';
       this.logger.error({
@@ -30,7 +31,7 @@ export class ScratchpayApiService extends BaseApiService {
     }
   }
 
-  async getVetClinics(context: RequestContext): Promise<IVetResponse> {
+  async getVetClinics(context: RequestContext): Promise<IVetResponse[]> {
     try {
       const response = await this.get(
         context,
