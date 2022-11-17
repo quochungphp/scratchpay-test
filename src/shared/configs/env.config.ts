@@ -37,4 +37,30 @@ export class EnvConfig {
       ? value.split(',').map((name) => name.trim())
       : ['http://localhost:3000'];
   }
+  fakeDatabaseUrl(): string[] {
+    return [
+      'https://storage.googleapis.com/scratchpay-code-challenge/dental-clinics.json',
+      'https://storage.googleapis.com/scratchpay-code-challenge/vet-clinics.json',
+    ];
+  }
+
+  get apiVersion(): string {
+    return this.envConfig['apiVersion'] || 'api/v1';
+  }
+
+  get corsAllowedOrigins(): string[] | string {
+    return this.cors(this.envConfig['corsAllowedOrigins'] || 'all');
+  }
+
+  get corsEnabled(): boolean {
+    return this.bool(this.envConfig['corsEnabled'], true);
+  }
+
+  get host(): string {
+    return this.envConfig['host'] || '127.0.0.1';
+  }
+
+  get port(): number {
+    return this.int(this.envConfig['port'], 3111);
+  }
 }
