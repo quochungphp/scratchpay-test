@@ -14,6 +14,6 @@
   "jest.runAllTestsFirst": false,
   "jest.autoEnable": false,
   "jest.showCoverageOnLoad": false,
-  "cSpell.words": ["fastify"],
+  "cSpell.words": ["fastify", "Scratchpay"],
   "editor.formatOnSave": true
 }
