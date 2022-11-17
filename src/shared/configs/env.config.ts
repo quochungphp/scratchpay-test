@@ -38,29 +38,40 @@ export class EnvConfig {
       : ['http://localhost:3000'];
   }
   fakeDatabaseUrl(): string[] {
-    return [
-      'https://storage.googleapis.com/scratchpay-code-challenge/dental-clinics.json',
-      'https://storage.googleapis.com/scratchpay-code-challenge/vet-clinics.json',
-    ];
+    return this.envConfig['FAKE_DATABASE_URL']
+      ? this.envConfig['FAKE_DATABASE_URL'].split(',')
+      : [
+          'https://storage.googleapis.com/scratchpay-code-challenge/dental-clinics.json',
+          'https://storage.googleapis.com/scratchpay-code-challenge/vet-clinics.json',
+        ];
+  }
+  fakeBaseUrl(): string {
+    return (
+      this.envConfig['FAKE_DATABASE_URL'] || 'https://storage.googleapis.com'
+    );
   }
 
   get apiVersion(): string {
-    return this.envConfig['apiVersion'] || 'api/v1';
+    return this.envConfig['API_VERSION'] || 'api/v1';
   }
 
   get corsAllowedOrigins(): string[] | string {
-    return this.cors(this.envConfig['corsAllowedOrigins'] || 'all');
+    return this.cors(this.envConfig['CORS_ALLOWED_ORIGINS'] || 'all');
   }
 
   get corsEnabled(): boolean {
-    return this.bool(this.envConfig['corsEnabled'], true);
+    return this.bool(this.envConfig['CORS_ENABLED'], true);
   }
 
   get host(): string {
-    return this.envConfig['host'] || '127.0.0.1';
+    return this.envConfig['HOST'] || '127.0.0.1';
   }
 
   get port(): number {
-    return this.int(this.envConfig['port'], 3111);
+    return this.int(this.envConfig['PORT'], 3111);
+  }
+
+  get timeoutResponse(): number {
+    return this.int(this.envConfig['TIMEOUT_RESPONSE'], 90000);
   }
 }
