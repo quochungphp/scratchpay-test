@@ -6,6 +6,7 @@ import {
   IVetResponse,
 } from '../../../shared/services/apis/types/scratchpay.interface';
 import { RequestContext } from '../../../utils/request-context';
+import { isInRange } from '../../../utils/time-in-range';
 import { ClinicSearchQuery } from '../types/clinic-search.query';
 
 @Injectable()
@@ -46,6 +47,19 @@ export class ClinicRepository {
       const search = data.filter((item) =>
         item.name.toLowerCase().includes(name),
       );
+      result.push(...search);
+    }
+
+    if (from && from.length > 0 && to && to.length > 0) {
+      const range = [from, to];
+      const search = data.filter((item) => {
+        if (
+          isInRange(item.availability.from, range) &&
+          isInRange(item.availability.to, range)
+        ) {
+          return item;
+        }
+      });
       result.push(...search);
     }
 
