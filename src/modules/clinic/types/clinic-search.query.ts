@@ -1,14 +1,15 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsOptional, Matches, IsString, IsNotEmpty } from 'class-validator';
 import { toLowerCase } from '../../../utils/to-lower-case';
 
 export class ClinicSearchQuery {
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
   @Transform(({ value }: TransformFnParams) => toLowerCase(value))
-  name: string;
+  name?: string;
 
   @ApiPropertyOptional()
   @IsOptional()

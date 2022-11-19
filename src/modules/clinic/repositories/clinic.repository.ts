@@ -35,6 +35,9 @@ export class ClinicRepository {
     data: IDentalResponse[],
   ): IDentalResponse[] {
     const { name, stateName, from, to } = query;
+    if (!name && !stateName && !from && !to) {
+      return data;
+    }
     const result: IDentalResponse[] = [];
     if (stateName && stateName.length > 0) {
       const search = data.filter((item) =>
@@ -43,7 +46,7 @@ export class ClinicRepository {
       result.push(...search);
     }
 
-    if (name.length > 0) {
+    if (name && name.length > 0) {
       const search = data.filter((item) =>
         item.name.toLowerCase().includes(name),
       );
