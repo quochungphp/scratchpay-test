@@ -74,4 +74,8 @@ export class EnvConfig {
   get timeoutResponse(): number {
     return this.int(this.envConfig['TIMEOUT_RESPONSE'], 90000);
   }
+
+  get xApiKey(): string {
+    return this.envConfig['X_API_KEY'] || 'X_API_KEY';
+  }
 }
