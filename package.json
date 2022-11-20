@@ -32,6 +32,7 @@
     "cli-table": "^0.3.11",
     "express-http-context": "^1.2.4",
     "helmet": "^6.0.0",
+    "md5": "^2.3.0",
     "on-headers": "^1.0.2",
     "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
