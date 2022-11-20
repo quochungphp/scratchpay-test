@@ -1,35 +1,22 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# The scratchpay-test
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+REST-based API Web Services
 
-## Description
+## Prerequisites
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The following tools need to be installed:
+
+- [Git](http://git-scm.com/)
+- [Node.js 14+](http://nodejs.org/)
+- [Docker](https://www.docker.com/get-started/)
+- [NestJS Framework](https://github.com/nestjs/nest)
 
 ## Installation
 
 ```bash
-$ npm install
+git clone <repository-url>
+cd <repository-url>
+npm install
 ```
 
 ## Running the app
@@ -50,12 +37,100 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
+```
 
-# e2e tests
-$ npm run test:e2e
+## Test request Apis on Vercel
 
-# test coverage
-$ npm run test:cov
+```bash
+# Test has success response
+    # Request search by time
+    curl -X 'GET' \
+      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics?from=11%3A00&to=20%3A00' \
+      -H 'accept: */*' \
+      -H 'x-api-key: 047575c8-68a5-11ed-9022-0242ac120002'
+    # Response
+      {"status":"success","data":[{"name":"Good Health Home","stateName":"FL","availability":{"from":"15:00","to":"20:00"}}]}
+
+
+    # Request search by name
+    curl -X 'GET' \
+      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics?name=Mayo%20Clinic' \
+      -H 'accept: */*' \
+      -H 'x-api-key: 047575c8-68a5-11ed-9022-0242ac120002'
+    # Response
+    {"status":"success","data":[{"name":"Mayo Clinic","stateName":"Florida","availability":{"from":"09:00","to":"20:00"}}]}
+
+
+    # Request search by stateName
+    curl -X 'GET' \
+      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics?stateName=FL' \
+      -H 'accept: */*' \
+      -H 'x-api-key: 047575c8-68a5-11ed-9022-0242ac120002'
+    # Response
+    {"status":"success","data":[{"name":"Mayo Clinic","stateName":"Florida","availability":{"from":"09:00","to":"20:00"}},{"name":"Hopkins Hospital Baltimore","stateName":"Florida","availability":{"from":"07:00","to":"22:00"}},{"name":"Good Health Home","stateName":"FL","availability":{"from":"15:00","to":"20:00"}}]}
+
+
+# Test has unauthorized exception
+    # Request without api key
+    curl -X 'GET' \
+      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics' \
+      -H 'accept: */*' \
+      -H 'x-api-key: '
+    # Response
+      {"status":"error","errors":[{"code":401,"title":"Unauthorized","detail":"The x-api-key not found","correlationId":"46b482f5-7b5e-49a3-8a68-d3c5ca5798d0","timestamp":"2022-11-20T08:34:42.369Z","path":"/api/v1/clinics"}]}
+```
+
+## Source structure
+
+```
+├── app.controller.spec.ts
+├── app.controller.ts
+├── app.module.ts
+├── app.service.ts
+├── declare
+│   └── global.d.ts
+├── main.ts
+├── modules
+│   └── clinic
+│       ├── clinic.controller.spec.ts
+│       ├── clinic.controller.ts
+│       ├── clinic.module.ts
+│       ├── handlers
+│       │   └── clinic-search.handler.ts
+│       ├── repositories
+│       │   └── clinic.repository.ts
+│       ├── tests
+│       │   └── clinic-search.test.ts
+│       └── types
+│           └── clinic-search.query.ts
+├── shared
+│   ├── configs
+│   │   └── env.config.ts
+│   ├── services
+│   │   └── apis
+│   │       ├── base-api.service.ts
+│   │       ├── scratchpay-api.service.ts
+│   │       └── types
+│   │           └── scratchpay.interface.ts
+│   └── shared.module.ts
+└── utils
+    ├── app-request.ts
+    ├── auth
+    │   └── auth-verify-api-key.guard.ts
+    ├── bootstrap-app.ts
+    ├── bootstrap-route-log.ts
+    ├── filters
+    │   └── http-exception.filter.ts
+    ├── interceptors
+    │   ├── error-response-transform.interceptor.ts
+    │   └── success-response-transform.interceptor.ts
+    ├── middlewares
+    │   └── logger.middleware.ts
+    ├── request-context.ts
+    ├── setup-ci-integration.ts
+    ├── time-in-range.ts
+    ├── to-lower-case.ts
+    └── wait-time.ts
 ```
 
 ## Support
@@ -70,4 +145,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
