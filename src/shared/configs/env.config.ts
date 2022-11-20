@@ -78,4 +78,20 @@ export class EnvConfig {
   get xApiKey(): string {
     return this.envConfig['X_API_KEY'] || 'X_API_KEY';
   }
+
+  get redisHost(): string {
+    if (process.env.IS_LOCAL_MACHINE === 'true') {
+      // start on separate process
+      return 'localhost';
+    }
+    return this.envConfig['REDIS_HOST'] || '127.0.0.1';
+  }
+
+  get redisPort(): number {
+    return this.int(this.envConfig['REDIS_PORT'], 6379);
+  }
+
+  get redisPassword(): string {
+    return this.envConfig['REDIS_PASSWORD'] || '123456';
+  }
 }

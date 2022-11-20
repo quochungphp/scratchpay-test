@@ -8,11 +8,13 @@ import { SuccessResponseTransformInterceptor } from './interceptors/success-resp
 import { useContainer } from 'class-validator';
 import { EnvConfig } from '../shared/configs/env.config';
 import { ScratchpayApiService } from '../shared/services/apis/scratchpay-api.service';
+import { RedisCacheService } from '../shared/services/redis/redis-cache.service';
 export type SetupContinuousIntegrationTest = {
   envConfig: EnvConfig;
   httpService: HttpService;
   app: INestApplication;
   moduleFixture: TestingModule;
+  redisCacheService: RedisCacheService;
   scratchpayApiService: ScratchpayApiService;
 };
 
@@ -26,6 +28,8 @@ export async function setupContinuousIntegrationTest(): Promise<SetupContinuousI
   const scratchpayApiService =
     moduleFixture.get<ScratchpayApiService>(ScratchpayApiService);
 
+  const redisCacheService =
+    moduleFixture.get<RedisCacheService>(RedisCacheService);
   const app = moduleFixture.createNestApplication();
   app.useGlobalPipes(
     new ValidationPipe({
@@ -45,6 +49,7 @@ export async function setupContinuousIntegrationTest(): Promise<SetupContinuousI
     envConfig,
     app,
     moduleFixture,
+    redisCacheService,
     scratchpayApiService,
   };
 }

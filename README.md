@@ -19,6 +19,16 @@ cd <repository-url>
 npm install
 ```
 
+## Redis cache
+
+- For now, I'm using redis lab instead of redis docker local, bc vercel is not support docker
+- Let me use test env variable in .env
+- I have noe more time to migrate vercel to gitlab CI with more security in deploment
+
+```bash
+  docker-compose -f docker-compose.redis.yml up -d
+```
+
 ## Running the app
 
 ```bash
