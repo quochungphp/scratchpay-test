@@ -2,6 +2,7 @@ import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { join } from 'path';
 
 import { EnvConfig } from '../shared/configs/env.config';
 import { ErrorResponseTransformInterceptor } from './interceptors/error-response-transform.interceptor';
@@ -31,7 +32,9 @@ export async function bootstrapApp(
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(`${apiVersion}/api-docs`, app, document);
-
+  app.useStaticAssets(join(__dirname, '/static'), {
+    prefix: `${apiVersion}/api-docs`,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
