@@ -1,0 +1,20 @@
+version: '3'
+services:
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: server
+    command: npm run start:prod
+    ports:
+      - '4034:4034'
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+    environment:
+      PORT: 3111
+    stdin_open: true
+    restart: unless-stopped
