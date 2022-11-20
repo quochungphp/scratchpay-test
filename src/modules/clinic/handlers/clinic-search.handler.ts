@@ -8,7 +8,7 @@ import { redisCacheKey } from '../../../utils/generate-key';
 import { RequestContext } from '../../../utils/request-context';
 import { ClinicRepository } from '../repositories/clinic.repository';
 import { ClinicSearchQuery } from '../types/clinic-search.query';
-import * as md5 from 'md5';
+import md5 = require('md5');
 import { RedisCacheService } from '../../../shared/services/redis/redis-cache.service';
 /*
   Note: Which has responsible hanover input to repository, after get data from repository 
