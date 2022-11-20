@@ -8,7 +8,10 @@ import {
 import { RequestContext } from '../../../utils/request-context';
 import { isInRange } from '../../../utils/time-in-range';
 import { ClinicSearchQuery } from '../types/clinic-search.query';
-
+/*
+  Note: assumption, I visualize ClinicRepository like a Repository Service
+  It has responsible communicate with database and filter data by input from handler like SQL query
+*/
 @Injectable()
 export class ClinicRepository {
   @Inject() private readonly scratchpayApiService: ScratchpayApiService;

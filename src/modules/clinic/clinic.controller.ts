@@ -22,7 +22,7 @@ export class ClinicController {
   @Inject() private readonly clinicSearchHandler: ClinicSearchHandler;
   @HttpCode(HttpStatus.OK)
   @Get('/')
-  async getUserByStarkKey(
+  async getClinics(
     @Req() request: AppRequest,
     @Query() query: ClinicSearchQuery,
   ) {

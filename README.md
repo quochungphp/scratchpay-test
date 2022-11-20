@@ -32,6 +32,18 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Run docker local
+
+```docker
+  sh deploy.sh
+```
+
+## Swagger local
+
+```
+  http://localhost:3111/api/v1/api-docs
+```
+
 ## Test
 
 ```bash
