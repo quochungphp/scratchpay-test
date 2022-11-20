@@ -45,7 +45,7 @@ $ npm run test
 # Test has success response
     # Request search by time
     curl -X 'GET' \
-      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics?from=11%3A00&to=20%3A00' \
+      'https://scratchpay-test.vercel.app/api/v1/clinics?from=11%3A00&to=20%3A00' \
       -H 'accept: */*' \
       -H 'x-api-key: 047575c8-68a5-11ed-9022-0242ac120002'
     # Response
@@ -54,7 +54,7 @@ $ npm run test
 
     # Request search by name
     curl -X 'GET' \
-      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics?name=Mayo%20Clinic' \
+      'https://scratchpay-test.vercel.app/api/v1/clinics?name=Mayo%20Clinic' \
       -H 'accept: */*' \
       -H 'x-api-key: 047575c8-68a5-11ed-9022-0242ac120002'
     # Response
@@ -63,7 +63,7 @@ $ npm run test
 
     # Request search by stateName
     curl -X 'GET' \
-      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics?stateName=FL' \
+      'https://scratchpay-test.vercel.app/api/v1/clinics?stateName=FL' \
       -H 'accept: */*' \
       -H 'x-api-key: 047575c8-68a5-11ed-9022-0242ac120002'
     # Response
@@ -73,7 +73,7 @@ $ npm run test
 # Test has unauthorized exception
     # Request without api key
     curl -X 'GET' \
-      'https://scratchpay-test-l5b97l3we-quochungphp.vercel.app/api/v1/clinics' \
+      'https://scratchpay-test.vercel.app/api/v1/clinics' \
       -H 'accept: */*' \
       -H 'x-api-key: '
     # Response
