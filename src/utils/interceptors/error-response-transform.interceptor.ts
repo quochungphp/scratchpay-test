@@ -2,6 +2,7 @@ import {
   CallHandler,
   ExecutionContext,
   Injectable,
+  InternalServerErrorException,
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
@@ -21,7 +22,7 @@ export class ErrorResponseTransformInterceptor<T>
   ): Observable<Response<T>> {
     return next.handle().pipe(
       catchError((error) => {
-        throw error;
+        throw new InternalServerErrorException(error);
       }),
     );
   }
