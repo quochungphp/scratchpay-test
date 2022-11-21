@@ -22,8 +22,8 @@ npm install
 ## Redis cache
 
 - For now, I'm using redis lab instead of redis docker local, bc vercel is not support docker
-- Let me use test env variable in .env
-- I have noe more time to migrate vercel to gitlab CI with more security in deploment
+- Please use local docker or testing by example APIs at line 67
+- Please update .env like .env.local before test in local
 
 ```bash
   docker-compose -f docker-compose.redis.yml up -d
@@ -154,6 +154,15 @@ $ npm run test
     ├── to-lower-case.ts
     └── wait-time.ts
 ```
+
+## Summary
+
+- **Simple, clear, readable code** √
+- **Correctness** √
+- **Security** For now, I'm using X-API-KEY, If you want I can implement JWT, Blacklist user session
+- **Memory efficiency** Yes, I can do it, simple case I'm using redis cache to handle more traffic. If you want to optimize search we can apply Elasticsearch
+- **Testing** √
+- **Documentation** √
 
 ## Support
 
