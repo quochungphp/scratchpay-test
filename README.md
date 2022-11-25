@@ -29,6 +29,17 @@ npm install
   docker-compose -f docker-compose.redis.yml up -d
 ```
 
+```bash
+.env
+
+  PORT=3111
+  X_API_KEY=047575c8-68a5-11ed-9022-0242ac120002
+  REDIS_PASSWORD=localhost
+  REDIS_HOST=localhost
+  REDIS_USER=localhost
+  REDIS_PORT=6379
+```
+
 ## Running the app
 
 ```bash
