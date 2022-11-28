@@ -60,7 +60,7 @@ export class ClinicRepository {
       const range = [from, to];
       const search = data.filter((item) => {
         if (
-          isInRange(item.availability.from, range) &&
+          isInRange(item.availability.from, range) ||
           isInRange(item.availability.to, range)
         ) {
           return item;
